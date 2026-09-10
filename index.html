@@ -6,6 +6,209 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Portfólio - Projeto Integrador</title>
+
+<style>
+:root{
+  --primary:#6c63ff;
+  --secondary:#00b8d9;
+  --dark:#172033;
+  --text:#354052;
+  --light:#f5f7fb;
+  --white:#ffffff;
+  --shadow:0 12px 30px rgba(23,32,51,.10);
+  --radius:20px;
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--text);
+  background:linear-gradient(135deg,#f7f9ff 0%,#eef7ff 100%);
+  line-height:1.7;
+}
+
+#barra-acessibilidade{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:10px 15px;
+  background:#111827;
+  box-shadow:0 4px 15px rgba(0,0,0,.18);
+}
+
+#barra-acessibilidade button{
+  border:1px solid rgba(255,255,255,.2);
+  background:#1f2937;
+  color:white;
+  padding:9px 13px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+  transition:.2s;
+}
+
+#barra-acessibilidade button:hover{
+  background:var(--primary);
+  transform:translateY(-2px);
+}
+
+header{
+  position:relative;
+  text-align:center;
+  padding:75px 20px 85px;
+  color:white;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(0,184,217,.35),transparent 30%),
+    radial-gradient(circle at 85% 20%,rgba(108,99,255,.45),transparent 32%),
+    linear-gradient(135deg,#111827,#273469);
+  overflow:hidden;
+}
+
+header:after{
+  content:"";
+  position:absolute;
+  left:-5%;
+  right:-5%;
+  bottom:-70px;
+  height:120px;
+  background:var(--light);
+  border-radius:50% 50% 0 0;
+}
+
+header h1{
+  position:relative;
+  z-index:2;
+  margin:0 auto 15px;
+  font-size:clamp(2rem,5vw,4rem);
+  letter-spacing:-1px;
+}
+
+header p{
+  position:relative;
+  z-index:2;
+  max-width:850px;
+  margin:12px auto;
+  font-size:1.08rem;
+  opacity:.95;
+}
+
+header img{
+  position:relative;
+  z-index:2;
+  display:block;
+  width:min(850px,92%);
+  max-height:430px;
+  object-fit:cover;
+  margin:30px auto;
+  border:7px solid rgba(255,255,255,.9);
+  border-radius:24px;
+  box-shadow:0 25px 55px rgba(0,0,0,.3);
+}
+
+main{
+  width:min(1100px,92%);
+  margin:0 auto;
+  padding:20px 0 70px;
+}
+
+section{
+  position:relative;
+  margin:30px 0;
+  padding:35px;
+  background:rgba(255,255,255,.95);
+  border:1px solid rgba(108,99,255,.10);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+section:before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:7px;
+  height:100%;
+  background:linear-gradient(var(--primary),var(--secondary));
+}
+
+h2{
+  margin-top:0;
+  color:var(--dark);
+  font-size:clamp(1.55rem,3vw,2.2rem);
+}
+
+h3{
+  color:var(--primary);
+  margin-top:28px;
+}
+
+p{font-size:1.03rem}
+
+ul{
+  padding-left:22px;
+}
+
+li{
+  margin:15px 0;
+  padding:14px 16px;
+  background:#f8faff;
+  border-radius:12px;
+  border-left:3px solid var(--secondary);
+}
+
+li strong{color:var(--dark)}
+
+video{
+  display:inline-block;
+  vertical-align:top;
+  width:calc(50% - 12px);
+  margin:20px 8px 0 0;
+  border-radius:16px;
+  background:#111827;
+  box-shadow:0 10px 25px rgba(0,0,0,.16);
+}
+
+footer{
+  text-align:center;
+  padding:45px 20px;
+  color:white;
+  background:#111827;
+}
+
+footer p{
+  margin:5px;
+}
+
+@media(max-width:700px){
+  header{padding:50px 15px 70px}
+  section{padding:25px 22px}
+  video{display:block;width:100%;margin:18px 0}
+  #barra-acessibilidade{justify-content:flex-start}
+}
+
+html.acessibilidade-clara body{background:white;color:#111}
+html.acessibilidade-clara section{background:white;border:2px solid #111}
+html.acessibilidade-clara header{background:#fff;color:#111}
+html.acessibilidade-clara footer{background:#fff;color:#111}
+
+html.acessibilidade-escura body{background:#111827;color:#f9fafb}
+html.acessibilidade-escura section{background:#1f2937;color:#f9fafb}
+html.acessibilidade-escura h2,
+html.acessibilidade-escura h3,
+html.acessibilidade-escura li strong{color:#fff}
+html.acessibilidade-escura li{background:#374151}
+</style>
+
 </head>
 
 <body>
@@ -125,6 +328,39 @@
   });
 })();
 </script>
+
+    
+<nav class="menu" aria-label="Navegação principal">
+  <a href="#sobre">Sobre</a>
+  <a href="#robotica">Robótica</a>
+  <a href="#fisica">Física</a>
+  <a href="#programacao">Programação</a>
+  <a href="#jornada">Nossa Jornada</a>
+</nav>
+<style>
+.menu{
+  position:sticky;
+  top:62px;
+  z-index:900;
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:10px 15px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #e5e7eb;
+}
+.menu a{
+  text-decoration:none;
+  color:#273469;
+  font-weight:700;
+  padding:8px 13px;
+  border-radius:10px;
+}
+.menu a:hover{background:#eef0ff;color:#6c63ff}
+@media(max-width:700px){.menu{top:108px}.menu a{font-size:.9rem}}
+</style>
 
     <!-- CABEÇALHO -->
     <header>
@@ -346,5 +582,3 @@
 </body>
 
 </html>
-
-
