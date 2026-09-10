@@ -11,6 +11,122 @@
 
 <body>
 
+    <div id="barra-acessibilidade" role="region" aria-label="Ferramentas de acessibilidade">
+  <button type="button" id="btn-ler" aria-pressed="false">
+    <span aria-hidden="true">🔊</span> Ler página
+  </button>
+  <button type="button" id="btn-escurecer" aria-label="Diminuir contraste, escurecer o texto">
+    <span aria-hidden="true">🌙</span> Escurecer
+  </button>
+  <button type="button" id="btn-clarear" aria-label="Aumentar contraste, clarear o texto">
+    <span aria-hidden="true">☀️</span> Clarear
+  </button>
+  <button type="button" id="btn-aumentar-fonte" aria-label="Aumentar tamanho da fonte">
+    <span aria-hidden="true">A+</span>
+  </button>
+  <button type="button" id="btn-diminuir-fonte" aria-label="Diminuir tamanho da fonte">
+    <span aria-hidden="true">A-</span>
+  </button>
+  <button type="button" id="btn-resetar" aria-label="Restaurar aparência original">
+    <span aria-hidden="true">↺</span> Redefinir
+  </button>
+</div>
+<script>
+(function () {
+  "use strict";
+
+  var html = document.documentElement;
+  var btnLer = document.getElementById("btn-ler");
+  var btnEscurecer = document.getElementById("btn-escurecer");
+  var btnClarear = document.getElementById("btn-clarear");
+  var btnFontePlus = document.getElementById("btn-aumentar-fonte");
+  var btnFonteMinus = document.getElementById("btn-diminuir-fonte");
+  var btnResetar = document.getElementById("btn-resetar");
+
+  var tamanhoFonteAtual = 100;
+
+  var sintetizador = window.speechSynthesis;
+  var falando = false;
+
+  function pegarTextoDaPagina() {
+    var clone = document.body.cloneNode(true);
+    var barraNoClone = clone.querySelector("#barra-acessibilidade");
+    if (barraNoClone) barraNoClone.remove();
+    return clone.innerText || clone.textContent || "";
+  }
+
+  function lerPagina() {
+    if (!sintetizador) {
+      alert("Seu navegador não suporta leitura de página (Web Speech API).");
+      return;
+    }
+    var texto = pegarTextoDaPagina().trim();
+    if (!texto) return;
+
+    var fala = new SpeechSynthesisUtterance(texto);
+    fala.lang = "pt-BR";
+    fala.rate = 1;
+
+    fala.onend = function () {
+      falando = false;
+      btnLer.setAttribute("aria-pressed", "false");
+      btnLer.innerHTML = '<span aria-hidden="true">🔊</span> Ler página';
+    };
+
+    sintetizador.speak(fala);
+    falando = true;
+    btnLer.setAttribute("aria-pressed", "true");
+    btnLer.innerHTML = '<span aria-hidden="true">⏹</span> Parar leitura';
+  }
+
+  function pararLeitura() {
+    if (sintetizador) sintetizador.cancel();
+    falando = false;
+    btnLer.setAttribute("aria-pressed", "false");
+    btnLer.innerHTML = '<span aria-hidden="true">🔊</span> Ler página';
+  }
+
+  btnLer.addEventListener("click", function () {
+    if (falando) {
+      pararLeitura();
+    } else {
+      lerPagina();
+    }
+  });
+
+  function aplicarContraste(modo) {
+    html.classList.remove("acessibilidade-clara", "acessibilidade-escura");
+    if (modo === "claro") html.classList.add("acessibilidade-clara");
+    if (modo === "escuro") html.classList.add("acessibilidade-escura");
+  }
+
+  btnClarear.addEventListener("click", function () {
+    var jaEstaClaro = html.classList.contains("acessibilidade-clara");
+    aplicarContraste(jaEstaClaro ? "normal" : "claro");
+  });
+
+  btnEscurecer.addEventListener("click", function () {
+    var jaEstaEscuro = html.classList.contains("acessibilidade-escura");
+    aplicarContraste(jaEstaEscuro ? "normal" : "escuro");
+  });
+
+  function ajustarFonte(delta) {
+    tamanhoFonteAtual = Math.min(200, Math.max(70, tamanhoFonteAtual + delta));
+    html.style.fontSize = tamanhoFonteAtual + "%";
+  }
+
+  btnFontePlus.addEventListener("click", function () { ajustarFonte(10); });
+  btnFonteMinus.addEventListener("click", function () { ajustarFonte(-10); });
+
+  btnResetar.addEventListener("click", function () {
+    pararLeitura();
+    aplicarContraste("normal");
+    tamanhoFonteAtual = 100;
+    html.style.fontSize = "";
+  });
+})();
+</script>
+
     <!-- CABEÇALHO -->
     <header>
         <h1>Portfólio do Projeto Integrador</h1>

@@ -34,4 +34,49 @@ font-size: 40px;
 font-family: Arial, Helvetica, sans-serif;
 text-align: center;
 margin-top: 45px;
-margin-bottom: 15px;
+margin-bottom: 15px; }
+
+#barra-acessibilidade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #1a1a1a;
+}
+#barra-acessibilidade button {
+    font-family: inherit;
+    font-size: 15px;
+    padding: 8px 14px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
+#barra-acessibilidade button:hover {
+    background: #4d4d4d;
+}
+#barra-acessibilidade button:focus-visible {
+    outline: 3px solid #ffd54f;
+    outline-offset: 2px;
+}
+#barra-acessibilidade button[aria-pressed="true"] {
+    background: #ffd54f;
+    color: #000;
+}
+
+html.acessibilidade-clara {
+    filter: brightness(1.35) contrast(1.15);
+}
+html.acessibilidade-escura {
+    filter: brightness(0.75) contrast(1.2);
+}
+
+body {
+    padding-top: 56px;
+}
